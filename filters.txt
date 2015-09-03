@@ -1,0 +1,57 @@
+  ################################################
+ #              Local DNS Server                  #
+####################################################
+#                                                  #
+# In order to use add an entry in this file, you   #
+# just have to add the domain name to block.       #
+# The valid values are :                           #
+#   * Full domain name                             #
+#   * Partial domain name with a star              #
+#   * Pre-Regex filter                             #
+#                                                  #
+# You can add a comment with the symbol #.         #
+# If you add this symbol after an entry,           #
+# everything after the symbol on the same line     #
+# will be ignored.                                 #
+#                                                  #
+########+           +##########+           +########
+#                                                  #
+# www.chocolate.com                                #
+#                                                  #
+# This example blocks only :                       #
+#   * www.chocolate.com                            #
+#                                                  #
+########+                                  +########
+#                                                  #
+# *chocolate.com                                   #
+#                                                  #
+# This example blocks :                            #
+#   * www.chocolate.com                            #
+#   * chocolate.com                                #
+#   * www.good.chocolate.com                       #
+#   * etc...                                       #
+#                                                  #
+########+                                  +########
+#                                                  #
+# www.chocolates?.com                              #
+#                                                  #
+# This example blocks :                            #
+#   * www.chocolate.com                            #
+#   * www.chocolates.com                           #
+#                                                  #
+####################################################
+#                                                  #
+# If you add or remove an new entry in this file   #
+# and you want the change to be updated            #
+# immediately, you have to clear your DNS cache.   #
+#                                                  #
+#   [Windows]  ipconfig /flushdns                  #
+#   [Linux]    service nscd reload                 #
+#   [Mac OS X] lookupd -flushcache                 #
+ #                                                #
+  ################################################
+
+
+# Put your entries here
+
+
