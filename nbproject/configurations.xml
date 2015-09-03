@@ -44,12 +44,8 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
-        <cTool>
-          <commandLine>-lwsock32 -llib</commandLine>
-        </cTool>
         <ccTool>
           <commandlineTool>g++</commandlineTool>
-          <commandLine>-lwsock32 -lws2_32</commandLine>
         </ccTool>
         <linkerTool>
           <linkerLibItems>

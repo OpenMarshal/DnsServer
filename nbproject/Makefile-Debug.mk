@@ -40,11 +40,11 @@ OBJECTFILES= \
 
 
 # C Compiler Flags
-CFLAGS=-lwsock32 -llib
+CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=-lwsock32 -lws2_32
-CXXFLAGS=-lwsock32 -lws2_32
+CCFLAGS=
+CXXFLAGS=
 
 # Fortran Compiler Flags
 FFLAGS=
