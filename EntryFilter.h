@@ -8,7 +8,7 @@
 #ifndef ENTRYFILTER_H
 #define	ENTRYFILTER_H
 
-#include <String.h>
+#include <string.h>
 
 class EntryFilter
 {

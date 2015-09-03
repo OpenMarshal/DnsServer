@@ -8,13 +8,8 @@
 #ifndef DATAGRAMSOCKET_H
 #define	DATAGRAMSOCKET_H
 
-#include "GlobalHeader.h"
-
-#if OS == WIN
-    #include <winsock2.h>
-    #include <io.h>
-#endif
-
+#include "ErrorManager.h"
+#include "Sock.h"
 #include "INetAddress.h"
 #include "Datagram.h"
 
@@ -28,14 +23,14 @@ public:
         sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
         if(sock == -1)
         {
-            error = WSAGetLastError();
+            error = getErrorNo();
             errorLocation = 0;
             return;
         }
         
         if(bind(sock, addr.toPtrSockAddr(), addr.getLength()) == -1)
         {
-            error = WSAGetLastError();
+            error = getErrorNo();
             errorLocation = 1;
             return;
         }
@@ -49,7 +44,7 @@ public:
         
         dtg->len = recvfrom(sock, dtg->data, dtg->maxLen, 0, addr->toPtrSockAddr(), addr->getPtrLength());
         if(dtg->len < 0)
-            dtg->error = WSAGetLastError();
+            dtg->error = getErrorNo();
     }
     Datagram* receive(uint dataLen) const
     {
@@ -63,37 +58,42 @@ public:
         return dtg;
     }
     
-    uint send(const Datagram* dtg, INetAddress dest) const
-    {
-        return send(dtg->data, dtg->len, dest.toPtrSockAddr(), dest.getLength());
-    }
     uint send(Datagram* dtg) const
     {
         return send(dtg, dtg->getINetAddress());
     }
+    uint send(const Datagram* dtg, INetAddress dest) const
+    {
+        return send(dtg->data, dtg->len, dest.toPtrSockAddr(), dest.getLength());
+    }
     uint send(char* data, uint len, struct sockaddr* addr, uint addrLen) const
     {
-        if(sendto(sock, data, len, 0, addr, addrLen) <= 0)
-            return WSAGetLastError();
+        if(sendto(sock, data, len, 0, addr, addrLen) < 0)
+            return getErrorNo();
         else
             return 0;
     }
     
-    boolean isErroneous()
+    bool isErroneous()
     {
         return error != 0;
     }
-    boolean isErrorOnBinding()
-    {
-        return errorLocation == 0;
-    }
-    boolean isErrorOnSocketCreation()
+    bool isErrorOnBinding()
     {
         return errorLocation == 1;
+    }
+    bool isErrorOnSocketCreation()
+    {
+        return errorLocation == 0;
     }
     sint getError()
     {
         return error;
+    }
+    
+    INetAddress getAddress()
+    {
+        return addr;
     }
     
 private:

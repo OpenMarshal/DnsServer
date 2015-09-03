@@ -73,7 +73,7 @@ public:
         return addr.toPtrSockAddrIn()->sin_port;
     }
 
-    boolean isErroneous()
+    bool isErroneous()
     {
         return len == -1;
     }
@@ -95,7 +95,7 @@ private:
     sint len;
     sint error;
     
-    boolean homemadeData;
+    bool homemadeData;
 
     INetAddress addr;
     

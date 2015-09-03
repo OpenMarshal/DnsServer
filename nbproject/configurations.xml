@@ -8,9 +8,11 @@
       <itemPath>DatagramSocket.h</itemPath>
       <itemPath>Defines.h</itemPath>
       <itemPath>EntryFilter.h</itemPath>
+      <itemPath>ErrorManager.h</itemPath>
       <itemPath>ExString.h</itemPath>
       <itemPath>GlobalHeader.h</itemPath>
       <itemPath>INetAddress.h</itemPath>
+      <itemPath>Sock.h</itemPath>
       <itemPath>Types.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -62,6 +64,8 @@
       </item>
       <item path="EntryFilter.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="ErrorManager.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="ExString.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="ExString.h" ex="false" tool="3" flavor2="0">
@@ -69,6 +73,8 @@
       <item path="GlobalHeader.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="INetAddress.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Sock.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Types.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -103,6 +109,8 @@
       </item>
       <item path="EntryFilter.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="ErrorManager.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="ExString.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="ExString.h" ex="false" tool="3" flavor2="0">
@@ -110,6 +118,41 @@
       <item path="GlobalHeader.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="INetAddress.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Sock.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Types.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Linux" type="1">
+      <toolsSet>
+        <compilerSet>GNU|GNU</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+      </compileType>
+      <item path="Datagram.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="DatagramSocket.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Defines.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="EntryFilter.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ErrorManager.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ExString.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="ExString.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="GlobalHeader.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="INetAddress.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Sock.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Types.h" ex="false" tool="3" flavor2="0">
       </item>

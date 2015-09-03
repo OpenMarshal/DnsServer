@@ -19,18 +19,22 @@
 
 
 EntryFilter* loadEntryFilters();
-void received(char* data, boolean blocked);
+void received(char* data, bool blocked);
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
+    int error;
+    
+#if OS == WIN
     WSADATA wsaData;
-    int error = WSAStartup(MAKEWORD(2, 2), &wsaData);
+    error = WSAStartup(MAKEWORD(2, 2), &wsaData);
 
     if(error != 0)
     {
         debug("WSAStartup error : %i\r\n", error);
         return -1;
     }
+#endif
     
     INetAddress outaddr(DNS_SERVER_IP, DNS_SERVER_PORT);
     INetAddress inaddr(53);
@@ -38,14 +42,44 @@ int main(int argc, char *argv[])
     DatagramSocket in_ds(inaddr);
     if(in_ds.isErroneous())
     {
-        debug("in_ds error : %i %i %i\r\n", in_ds.isErroneous(), in_ds.getError(), in_ds.isErrorOnBinding(), in_ds.isErrorOnSocketCreation());
+        if(in_ds.isErrorOnSocketCreation())
+            debug("in_ds error : Can't create socket [error no. %i]\r\n", in_ds.getError());
+        if(in_ds.isErrorOnBinding())
+        {
+            debug("in_ds error : Can't bind [error no. %i]\r\n", in_ds.getError());
+            switch(in_ds.getError())
+            {
+                case 98:
+                    printf("Can't bind, the port is already in use.\r\n");
+                    fflush(stdout);
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
         return -1;
     }
     
     DatagramSocket out_ds;
     if(out_ds.isErroneous())
     {
-        debug("out_ds error : %i %i %i\r\n", out_ds.getError(), out_ds.isErrorOnBinding(), out_ds.isErrorOnSocketCreation());
+        if(in_ds.isErrorOnSocketCreation())
+            debug("out_ds error : Can't create socket [error no. %i]\r\n", out_ds.getError());
+        if(in_ds.isErrorOnBinding())
+        {
+            debug("out_ds error : Can't bind [error no. %i]\r\n", out_ds.getError());
+            switch(out_ds.getError())
+            {
+                case 98:
+                    printf("Can't bind, the port is already in use.\r\n");
+                    fflush(stdout);
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
         return -1;
     }
     
@@ -55,12 +89,14 @@ int main(int argc, char *argv[])
     Datagram* dtg_in = new Datagram(data, 500);
     Datagram* dtg_out = new Datagram(data, 500);
     
-    debug("Started\r\n");
+    debug("Started on the port : %i\r\n", in_ds.getAddress().getPort());
     
     for(;;)
     {
         in_ds.receive(dtg_in);
-        debug("in_ds.receive : %i %i\r\n", dtg_in->isErroneous(), dtg_in->getError());
+        
+        if(dtg_in->isErroneous())
+            debug("in_ds.receive error no. %i\r\n", dtg_in->getError());
         
         char* str = dtg_in->getData() + 13;
         
@@ -70,7 +106,9 @@ int main(int argc, char *argv[])
             debug("out_ds.send : %i\r\n", error);
 
             out_ds.receive(dtg_out);
-            debug("out_ds.receive : %i %i\r\n", dtg_out->isErroneous(), dtg_out->getError());
+            
+            if(dtg_out->isErroneous())
+                debug("dtg_out.receive error no. %i\r\n", dtg_out->getError());
 
             error = in_ds.send(dtg_out, dtg_in->getINetAddress());
             debug("in_ds.send : %i\r\n", error);
@@ -135,12 +173,12 @@ EntryFilter* loadEntryFilters()
     return ef;
 }
 
-void received(char* data, boolean blocked)
+void received(char* data, bool blocked)
 {
     if(blocked)
         printf(" >X> %s [BLOCKED]\r\n", data);
     else
         printf(" >>> %s\r\n", data);
     
-    _flushall();
+    fflush(stdout);
 }

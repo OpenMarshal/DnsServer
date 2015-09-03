@@ -23,19 +23,19 @@
  *    WIN
  *    LINUX
  *****************************/
-#define OS WIN
+#define OS LINUX
 
 
 /*****************************
  * Debugger
  *****************************/
-#define DEBUG 0
+#define DEBUG 1
 
 
 /*****************************
  * Default DNS Server
  *****************************/
-#define DNS_SERVER_IP L"212.27.40.241"
+#define DNS_SERVER_IP "212.27.40.241"
 #define DNS_SERVER_PORT 53
 
 
