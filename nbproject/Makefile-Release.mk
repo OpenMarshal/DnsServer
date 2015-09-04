@@ -59,7 +59,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=
+LDLIBSOPTIONS=-lws2_32 -lwsock32
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}

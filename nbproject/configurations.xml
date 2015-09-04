@@ -130,6 +130,12 @@
         <asmTool>
           <developmentMode>5</developmentMode>
         </asmTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibLibItem>ws2_32</linkerLibLibItem>
+            <linkerLibLibItem>wsock32</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
       </compileType>
       <item path="Configuration.cpp" ex="false" tool="1" flavor2="0">
       </item>

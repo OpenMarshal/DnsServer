@@ -45,14 +45,14 @@ While the program is running, it will use the "filters.txt" file to know which d
 
 #### Windows
 ```
-$ localdnsserver.exe [arguments]
+$ localdnsserver.exe [OPTIONS]
 ```
 #### Linux
 ```
-$ ./localdnsserver.exe [arguments]
+$ ./localdnsserver [OPTIONS]
 ```
 
-#### Arguments
+#### Options
 <table>
   <thead>
     <tr>
@@ -66,7 +66,7 @@ $ ./localdnsserver.exe [arguments]
     <tr>
       <td>-h, -help, --help</td>
       <td></td>
-      <td>Display the help about the arguments</td>
+      <td>Display the help about the options</td>
       <td></td>
     </tr>
     <tr>
@@ -119,9 +119,10 @@ $ ./localdnsserver.exe [arguments]
 
 ### Windows
 
-On Windows, there is no DNS Server already installed and running, making the
-installation something easy.
-The DNS cache is managed by the operating system (made by "dnsmasq" in some distributions of Linux).
+#### Description
+
+On Windows, there is no DNS Server already installed and running, making the installation something easy.
+The DNS cache is managed by the operating system (made by "dnsmasq" in some distro of Linux).
 
 The installation consists to change the DNS server which will be used by your operating system to send DNS requests.
 This software is a DNS server hosted in local ; so you will have to change the IP of the DNS server to use into "127.0.0.1".
@@ -131,12 +132,14 @@ In the "Use the following DNS server addresses" at step 5, your will put on the 
 
 #### Get the software
 
-...
+You can download the source code and compile it or download a compiled version from this repo.
+GitHub : https://github.com/OpenMarshal/LocalDnsServerCpp.git
+Direct Download : [MinGW-Windows](dist/Release/MinGW-Windows/localdnsserver.exe)
 
 #### Autorun
 
 Open the folder "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp" and create a new CMD file (for example : "startlocaldnsserver.cmd").
-Put in the file the following code (with [SOFT_PATH] the path of the folder containing the software and [ARGS] the list of arguments you want to use) :
+Put in the file the following code (with [SOFT_PATH] the path of the folder containing the software and [OPTIONS] the list of options you want to use) :
 ```cmd
 @echo off
 
@@ -147,7 +150,7 @@ ipconfig /flushdns
 cd [SOFT_PATH]
 
 :: Start the software
-start /b localdnsserver.exe [ARGS]
+start /b localdnsserver.exe [OPTIONS]
 
 cls
 ```
@@ -166,15 +169,17 @@ D:
 cd D:\Projects\cpp\LocalDnsServer\dist\Debug\MinGW-Windows
 
 :: Start the software
-start /b localdnsserver.exe [ARGS]
+start /b localdnsserver.exe [OPTIONS]
 
 cls
 ```
 
 ##### Note no.2
-Don't forget that if you want to start it without window (hidden), you will have to add the argument "-hide" in [ARGS].
+Don't forget that if you want to start it without window (hidden), you will have to add the option "-hide" in [OPTIONS].
 
 ### Linux
+
+#### Description
 
 <table>
   <tr>
@@ -259,13 +264,36 @@ sudo netstat -lanp | grep ":53 "
 
 Run it after compilation :
 ```
-sudo ./localdnsservercpp
+sudo ./localdnsserver
 ```
 
 
-Restart the cache "dnsmasq" after having stopped localdnsservercpp :
+Restart the cache "dnsmasq" after having stopped localdnsserver :
 ```
 sudo dnsmasq
 ```
 
+#### Autorun
+
+Create the file which will be used to run the program with your own options.
+```
+$ sudo nano /etc/init.d/autorunLocalDnsServer
+```
+
+Put the content
+```bash
+#!/bin/bash
+
+# Go to the program location
+cd /MY/PATH/
+
+# Run the program (& = in parallel)
+sudo ./localdnsserver [OPTIONS] &
+```
+
+Then you just have to update the list of files to start :
+```
+$ sudo chmod +x /etc/init.d/filename
+$ sudo update-rc.d autorunLocalDnsServer defaults
+```
 
