@@ -133,12 +133,13 @@ In the "Use the following DNS server addresses" at step 5, your will put on the 
 #### Get the software
 
 You can download the source code and compile it or download a compiled version from this repo.
-GitHub : https://github.com/OpenMarshal/LocalDnsServerCpp.git
-Direct Download : [MinGW-Windows](dist/Release/MinGW-Windows/localdnsserver.exe)
+* GitHub : https://github.com/OpenMarshal/LocalDnsServerCpp.git
+* Direct Download : [MinGW-Windows](https://github.com/OpenMarshal/LocalDnsServerCpp/raw/master/dist/Release/MinGW-Windows/localdnsserver.exe)
 
 #### Autorun
 
 Open the folder "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp" and create a new CMD file (for example : "startlocaldnsserver.cmd").
+
 Put in the file the following code (with [SOFT_PATH] the path of the folder containing the software and [OPTIONS] the list of options you want to use) :
 ```cmd
 @echo off
@@ -157,7 +158,8 @@ cls
 
 ##### Note no.1
 If [SOFT_PATH] is not on the same drive of your operating system, you will have to specify it in the CMD file.
-For example, if the software path is : "D:\Projects\cpp\LocalDnsServer\dist\Debug\MinGW-Windows" and my operating system is on the drive "C:", i will have to do so :
+
+For example, if the software path is : "D:\Projects\cpp\LocalDnsServer\dist\Debug\MinGW-Windows" and my operating system is on the drive "C:", you will have to do so :
 ```cmd
 @echo off
 
