@@ -41,6 +41,80 @@ While the program is running, it will use the "filters.txt" file to know which d
 </table>
 
 
+# Run
+
+#### Windows
+```
+$ localdnsserver.exe [arguments]
+```
+#### Linux
+```
+$ ./localdnsserver.exe [arguments]
+```
+
+#### Arguments
+<table>
+  <thead>
+    <tr>
+      <th>Command(s)</th>
+      <th>Parameter(s)</th>
+      <th>Description</th>
+      <th>Compatibility</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>-h, -help, --help</td>
+      <td></td>
+      <td>Display the help about the arguments</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>-p, -port</td>
+      <td>[PORT]</td>
+      <td>Define the port</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>-rip, -remoteip</td>
+      <td>[IP]</td>
+      <td>Define the IP of the remote DNS Server</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>-rp, -remoteport</td>
+      <td>[PORT]</td>
+      <td>Define the port of the remote DNS Server</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>-dns</td>
+      <td>[FILE_PATH]</td>
+      <td>Define the file containing the filters</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>-o, -output</td>
+      <td>[FILE_PATH]</td>
+      <td>Define the output file</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>-hide</td>
+      <td></td>
+      <td>Hide the window</td>
+      <td>Windows only</td>
+    </tr>
+  </tbody>
+</table>
+
+
 # Installation
 
 ### Windows
@@ -59,6 +133,46 @@ In the "Use the following DNS server addresses" at step 5, your will put on the 
 
 ...
 
+#### Autorun
+
+Open the folder "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp" and create a new CMD file (for example : "startlocaldnsserver.cmd").
+Put in the file the following code (with [SOFT_PATH] the path of the folder containing the software and [ARGS] the list of arguments you want to use) :
+```cmd
+@echo off
+
+:: Clear the DNS Cache
+ipconfig /flushdns
+
+:: Go where the software is
+cd [SOFT_PATH]
+
+:: Start the software
+start /b localdnsserver.exe [ARGS]
+
+cls
+```
+
+##### Note no.1
+If [SOFT_PATH] is not on the same drive of your operating system, you will have to specify it in the CMD file.
+For example, if the software path is : "D:\Projects\cpp\LocalDnsServer\dist\Debug\MinGW-Windows" and my operating system is on the drive "C:", i will have to do so :
+```cmd
+@echo off
+
+:: Clear the DNS Cache
+ipconfig /flushdns
+
+:: Go where the software is
+D:
+cd D:\Projects\cpp\LocalDnsServer\dist\Debug\MinGW-Windows
+
+:: Start the software
+start /b localdnsserver.exe [ARGS]
+
+cls
+```
+
+##### Note no.2
+Don't forget that if you want to start it without window (hidden), you will have to add the argument "-hide" in [ARGS].
 
 ### Linux
 

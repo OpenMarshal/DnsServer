@@ -35,7 +35,13 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/Configuration.o \
+	${OBJECTDIR}/Datagram.o \
+	${OBJECTDIR}/DatagramSocket.o \
+	${OBJECTDIR}/EntryFilter.o \
 	${OBJECTDIR}/ExString.o \
+	${OBJECTDIR}/INetAddress.o \
+	${OBJECTDIR}/Printer.o \
 	${OBJECTDIR}/main.o
 
 
@@ -63,10 +69,40 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/localdnsserver.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/localdnsserver ${OBJECTFILES} ${LDLIBSOPTIONS}
 
+${OBJECTDIR}/Configuration.o: Configuration.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Configuration.o Configuration.cpp
+
+${OBJECTDIR}/Datagram.o: Datagram.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Datagram.o Datagram.cpp
+
+${OBJECTDIR}/DatagramSocket.o: DatagramSocket.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/DatagramSocket.o DatagramSocket.cpp
+
+${OBJECTDIR}/EntryFilter.o: EntryFilter.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/EntryFilter.o EntryFilter.cpp
+
 ${OBJECTDIR}/ExString.o: ExString.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ExString.o ExString.cpp
+
+${OBJECTDIR}/INetAddress.o: INetAddress.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/INetAddress.o INetAddress.cpp
+
+${OBJECTDIR}/Printer.o: Printer.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Printer.o Printer.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}

@@ -12,8 +12,7 @@
 
 #if OS == WIN
     #include <winsock2.h>
-#endif
-#if OS == LINUX
+#elif OS == LINUX
     #include <errno.h>
 #endif
 
@@ -21,7 +20,7 @@
 extern "C" {
 #endif
 
-sint getErrorNo()
+inline sint getErrorNo()
 {
     #if OS == WIN
         return WSAGetLastError();

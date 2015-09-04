@@ -11,13 +11,15 @@
 #include "Defines.h"
 
 #if DEBUG
-#define debug(format, args...) printf(format, ##args); fflush(stdout);
+    #define debug(format, args...) printf(format, ##args); fflush(stdout);
 #else
-#define debug(format, args...) ;
+    #define debug(format, args...) ;
 #endif
 
 #include "Types.h"
 #include <stdio.h>
+
+#include "Printer.h"
 
 
 #endif	/* GLOBALHEADER_H */

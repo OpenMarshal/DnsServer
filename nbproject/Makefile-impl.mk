@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=LocalDnsServerCpp
+PROJECTNAME=LocalDnsServer
 
 # Active Configuration
 DEFAULTCONF=Debug

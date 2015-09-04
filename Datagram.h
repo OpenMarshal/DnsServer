@@ -9,7 +9,6 @@
 #define	DATAGRAM_H
 
 #include "GlobalHeader.h"
-#include "DatagramSocket.h"
 #include "INetAddress.h"
 
 class DatagramSocket;
@@ -17,26 +16,9 @@ class DatagramSocket;
 class Datagram
 {
 public:
-    Datagram()
-        : homemadeData(false),
-        addr()
-    { }
-    Datagram(char* data, uint maxLen)
-        : homemadeData(false),
-        addr(),
-        data(data),
-        maxLen(maxLen),
-        len(0),
-        error(0)
-    { }
-    Datagram(char* data, sint len, uint maxLen, sint error)
-        : homemadeData(false),
-        addr(),
-        data(data),
-        len(len),
-        error(error),
-        maxLen(maxLen)
-    { }
+    Datagram();
+    Datagram(char* data, uint maxLen);
+    Datagram(char* data, sint len, uint maxLen, sint error);
 
     char* getData()
     {

@@ -54,4 +54,4 @@
 
 # Put your entries here
 
-
+*.msn.com

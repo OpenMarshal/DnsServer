@@ -10,22 +10,37 @@
 #include "DatagramSocket.h"
 #include "INetAddress.h"
 #include "ExString.h"
+#include "Configuration.h"
 
 #include <fstream>
 
 
 
 
-
-
-EntryFilter* loadEntryFilters();
+EntryFilter* loadEntryFilters(const char* filepath);
 void received(char* data, bool blocked);
+void displayHelp();
+
+
+
 
 int main(int argc, char* argv[])
 {
     int error;
     
+    Configuration config(argv, argc);
+    
+    if(config.isHelp)
+    {
+        displayHelp();
+        return 0;
+    }
+    
+    
 #if OS == WIN
+    if(config.hide)
+        FreeConsole();
+    
     WSADATA wsaData;
     error = WSAStartup(MAKEWORD(2, 2), &wsaData);
 
@@ -36,25 +51,28 @@ int main(int argc, char* argv[])
     }
 #endif
     
-    INetAddress outaddr(DNS_SERVER_IP, DNS_SERVER_PORT);
-    INetAddress inaddr(53);
+    INetAddress outaddr(config.remoteDnsServerIp, config.remoteDnsServerPort);
+    INetAddress inaddr(config.port);
     
     DatagramSocket in_ds(inaddr);
     if(in_ds.isErroneous())
     {
         if(in_ds.isErrorOnSocketCreation())
+        {
             debug("in_ds error : Can't create socket [error no. %i]\r\n", in_ds.getError());
+            getOutput() << "Can't create socket, error " << in_ds.getError() << "." << std::endl;
+        }
         if(in_ds.isErrorOnBinding())
         {
             debug("in_ds error : Can't bind [error no. %i]\r\n", in_ds.getError());
             switch(in_ds.getError())
             {
                 case 98:
-                    printf("Can't bind, the port is already in use.\r\n");
-                    fflush(stdout);
+                    getOutput() << "Can't bind, the port " << inaddr.getPort() << " is already in use." << std::endl;
                     break;
                     
                 default:
+                    getOutput() << "Can't bind, error " << in_ds.getError() << "." << std::endl;
                     break;
             }
         }
@@ -65,25 +83,28 @@ int main(int argc, char* argv[])
     if(out_ds.isErroneous())
     {
         if(in_ds.isErrorOnSocketCreation())
+        {
             debug("out_ds error : Can't create socket [error no. %i]\r\n", out_ds.getError());
+            getOutput() << "Can't create socket, error " << out_ds.getError() << "." << std::endl;
+        }
         if(in_ds.isErrorOnBinding())
         {
             debug("out_ds error : Can't bind [error no. %i]\r\n", out_ds.getError());
             switch(out_ds.getError())
             {
                 case 98:
-                    printf("Can't bind, the port is already in use.\r\n");
-                    fflush(stdout);
+                    getOutput() << "Can't bind, the port is already in use." << std::endl;
                     break;
                     
                 default:
+                    getOutput() << "Can't bind, error " << out_ds.getError() << "." << std::endl;
                     break;
             }
         }
         return -1;
     }
     
-    EntryFilter* filters = loadEntryFilters();
+    EntryFilter* filters = loadEntryFilters(config.filtersFile);
     
     char data[500];
     Datagram* dtg_in = new Datagram(data, 500);
@@ -96,22 +117,36 @@ int main(int argc, char* argv[])
         in_ds.receive(dtg_in);
         
         if(dtg_in->isErroneous())
+        {
             debug("in_ds.receive error no. %i\r\n", dtg_in->getError());
+            continue;
+        }
         
         char* str = dtg_in->getData() + 13;
         
         if(filters == 0 || !filters->matches(str))
         { // Not Blocked
             error = out_ds.send(dtg_in, outaddr);
-            debug("out_ds.send : %i\r\n", error);
+            if(error != 0)
+            {
+                debug("[NotBlocked] out_ds.send error : %i\r\n", error);
+                continue;
+            }
 
             out_ds.receive(dtg_out);
             
             if(dtg_out->isErroneous())
-                debug("dtg_out.receive error no. %i\r\n", dtg_out->getError());
+            {
+                debug("[NotBlocked] dtg_out.receive error no. %i\r\n", dtg_out->getError());
+                continue;
+            }
 
             error = in_ds.send(dtg_out, dtg_in->getINetAddress());
-            debug("in_ds.send : %i\r\n", error);
+            if(error != 0)
+            {
+                debug("[NotBlocked] in_ds.send error : %i\r\n", error);
+                continue;
+            }
             
             received(str, false);
         }
@@ -125,7 +160,11 @@ int main(int argc, char* argv[])
             data[7] = 0;
             
             error = in_ds.send(dtg_in, dtg_in->getINetAddress());
-            debug("in_ds.send : %i\r\n", error);
+            if(error != 0)
+            {
+                debug("[Blocked] in_ds.send error : %i\r\n", error);
+                continue;
+            }
             
             received(str, true);
         }
@@ -138,9 +177,9 @@ int main(int argc, char* argv[])
 }
 
 
-EntryFilter* loadEntryFilters()
+EntryFilter* loadEntryFilters(const char* filepath)
 {
-    std::ifstream infile("filters.txt");
+    std::ifstream infile(filepath);
     
     if(!infile.good())
         return 0;
@@ -176,9 +215,23 @@ EntryFilter* loadEntryFilters()
 void received(char* data, bool blocked)
 {
     if(blocked)
-        printf(" >X> %s [BLOCKED]\r\n", data);
+        getOutput() << " >X> " << data << " [BLOCKED]" << std::endl;
     else
-        printf(" >>> %s\r\n", data);
+        getOutput() << " >>> " << data << std::endl;
     
+    fflush(stdout);
+}
+
+void displayHelp()
+{
+    printf("\r\n********************************\r\n");
+    printf("******* Local DNS Server *******\r\n");
+    printf("********************************\r\n");
+    printf("\r\nList of parameters :\r\n");
+
+    int i = 0;
+    while(configuration_parameters[i][0] != '\0')
+        printf("   %s\r\n", configuration_parameters[i++]);
+
     fflush(stdout);
 }

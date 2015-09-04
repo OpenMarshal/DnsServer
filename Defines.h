@@ -23,13 +23,41 @@
  *    WIN
  *    LINUX
  *****************************/
-#define OS LINUX
+
+// Windows
+#if defined(__WIN32__)
+    #define OS WIN
+#elif defined(_WIN32)
+    #define OS WIN
+#elif defined(__CYGWIN__)
+    #define OS WIN
+#elif defined(__CYGWIN32__)
+    #define OS WIN
+#elif defined(__BORLANDC__)
+    #define OS WIN
+#elif defined(__MINGW32__)
+    #define OS WIN
+#elif defined(WIN32)
+    #define OS WIN
+#endif
+
+// Linux
+#if defined(linux)
+    #define OS LINUX
+#elif defined(__linux__)
+    #define OS LINUX
+#endif
+
+// Other
+#ifndef OS
+    #error OS or compiler not supported.
+#endif
 
 
 /*****************************
  * Debugger
  *****************************/
-#define DEBUG 1
+#define DEBUG 0
 
 
 /*****************************
