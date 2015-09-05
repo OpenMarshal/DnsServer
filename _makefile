@@ -1,0 +1,79 @@
+####################################
+#            Constants             #
+####################################
+
+OUTPUT_NAME = localdnsserver
+OUTPUT_DIR = .
+
+ifeq ($(OPERATING_SYSTEM), windows)
+	OUTPUT_EXT = .exe
+else
+	OUTPUT_EXT = 
+endif
+
+# Config
+OBJECT_DIR = bin
+SOURCE_DIR = src
+LIBS = -lws2_32 -lwsock32
+CFLAGS = -std=c++11 -Wall -I$(SOURCE_DIR) -D$(OPERATING_SYSTEM)
+COMP = g++
+OUTPUT_FULL = $(OUTPUT_DIR)/$(OUTPUT_NAME)$(OUTPUT_EXT)
+
+
+# Files
+OBJS = \
+	$(OBJECT_DIR)/main.o \
+	$(OBJECT_DIR)/Configuration.o \
+	$(OBJECT_DIR)/Datagram.o \
+	$(OBJECT_DIR)/DatagramSocket.o \
+	$(OBJECT_DIR)/EntryFilter.o \
+	$(OBJECT_DIR)/ExString.o \
+	$(OBJECT_DIR)/INetAddress.o \
+	$(OBJECT_DIR)/Printer.o
+	
+	
+
+####################################
+#             Commands             #
+####################################
+
+# Default command
+default: build
+
+# Build command
+build: clean init build_all
+	@$(COMP) $(CFLAGS) $(OBJS) -o $(OUTPUT_FULL) $(LIBS)
+	.clean_objs
+	@echo "Build finished with success."
+	@echo "You can find the resulting file at : "$(OUTPUT_FULL)
+	
+# Clean/Clear command
+clean: clean_objs
+	@rm -f $(OUTPUT_FULL)
+	@echo "Cleaned, ready for a new build."
+clear: clean
+	
+# Help
+help:
+	@echo "Commands : make [CMD]"
+	@echo "With [CMD] option :"
+	@echo "   * build [DEFAULT]"
+	@echo "   * clean/clear"
+
+	
+####################################
+#           Compilations           #
+####################################
+
+$(OBJECT_DIR)/%.o: $(SOURCE_DIR)/%.cpp
+	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
+
+init:
+	@mkdir -p $(OBJECT_DIR)
+	@mkdir -p $(OUTPUT_DIR)
+	
+clean_objs:
+	@rm -f -r $(OBJECT_DIR)
+	
+build_all: $(OBJS)
+
