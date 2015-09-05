@@ -5,7 +5,7 @@
 OUTPUT_NAME = localdnsserver
 OUTPUT_DIR = .
 
-ifeq ($(OPERATING_SYSTEM), windows)
+ifeq ($(OPERATING_SYSTEM), windows )
 	OUTPUT_EXT = .exe
 else
 	OUTPUT_EXT = 
@@ -18,6 +18,7 @@ LIBS = -lws2_32 -lwsock32
 CFLAGS = -std=c++11 -Wall -I$(SOURCE_DIR) -D$(OPERATING_SYSTEM)
 COMP = g++
 OUTPUT_FULL = $(OUTPUT_DIR)/$(OUTPUT_NAME)$(OUTPUT_EXT)
+DEBUG = -Ddebug
 
 
 # Files
@@ -42,14 +43,22 @@ default: build
 
 # Build command
 build: clean init build_all
-	@$(COMP) $(CFLAGS) $(OBJS) -o $(OUTPUT_FULL) $(LIBS)
-	.clean_objs
+	$(COMP) $(CFLAGS) $(OBJS) -o $(OUTPUT_FULL) $(LIBS)
+	@rm -f -r $(OBJECT_DIR)
 	@echo "Build finished with success."
 	@echo "You can find the resulting file at : "$(OUTPUT_FULL)
+
+# Debug mode
+debug: CFLAGS += -DDEBUG
+debug: build
+
+# Release mode
+release: build
 	
 # Clean/Clear command
-clean: clean_objs
+clean:
 	@rm -f $(OUTPUT_FULL)
+	@rm -f -r $(OBJECT_DIR)
 	@echo "Cleaned, ready for a new build."
 clear: clean
 	
@@ -71,9 +80,6 @@ $(OBJECT_DIR)/%.o: $(SOURCE_DIR)/%.cpp
 init:
 	@mkdir -p $(OBJECT_DIR)
 	@mkdir -p $(OUTPUT_DIR)
-	
-clean_objs:
-	@rm -f -r $(OBJECT_DIR)
 	
 build_all: $(OBJS)
 

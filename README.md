@@ -117,6 +117,39 @@ $ ./localdnsserver [OPTIONS]
 
 # Installation
 
+### Makefile
+
+<table>
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>$ make</td>
+      <td>Equivalent to <i>make release</i></td>
+    </tr>
+    <tr>
+      <td>$ make release</td>
+      <td>Create a release version of the software</td>
+    </tr>
+    <tr>
+      <td>$ make debug</td>
+      <td>Create a debug version of the software</td>
+    </tr>
+    <tr>
+      <td>$ make clear<br>$ make clean</td>
+      <td>Clean the folders</td>
+    </tr>
+    <tr>
+      <td>$ make help</td>
+      <td>Get help about the makefile</td>
+    </tr>
+  </tbody>
+</table>
+
 ### Windows
 
 #### Description
@@ -134,7 +167,18 @@ In the "Use the following DNS server addresses" at step 5, your will put on the 
 
 You can download the source code and compile it or download a compiled version from this repo.
 * GitHub : https://github.com/OpenMarshal/LocalDnsServerCpp.git
-* Direct Download : [MinGW-Windows](https://github.com/OpenMarshal/LocalDnsServerCpp/raw/master/dist/Release/MinGW-Windows/localdnsserver.exe)
+* <s>Direct Download : [MinGW-Windows](https://github.com/OpenMarshal/LocalDnsServerCpp/raw/master/dist/Release/MinGW-Windows/localdnsserver.exe)</s>
+
+If you download the GitHub repository, you will have to compile it.
+
+To do so, you just have to run <i>configure.exe</i>, which will create the <i>makefile</i> for Windows. After that, you will have to use a command <i>make</i> (for example the one included in MinGW or Cygwin).
+
+```
+$ configure.exe
+$ make
+```
+
+It will result in the creation of the final file <b>localdnsserver.exe</b>.
 
 #### Autorun
 
@@ -208,6 +252,14 @@ First of all, you have to [download the Repository](https://git-scm.com/book/en/
 $ git clone https://github.com/OpenMarshal/LocalDnsServerCpp.git
 ```
 Now, you have to compile the code for your processor, using your own compiler.
+
+To do so, you just have to run <i>configure</i> and to use the command <i>make</i>.
+
+```
+$ sudo chmod +x configure
+$ ./configure
+$ make
+```
 
 ##### Download already compiled
 
