@@ -14,7 +14,9 @@
 class DatagramSocket
 {
 public:
+	DatagramSocket(INetAddress addr, int timeout);
     DatagramSocket(INetAddress addr);
+	DatagramSocket(int timeout);
     DatagramSocket();
     
     void receive(Datagram* dtg) const;
@@ -23,6 +25,7 @@ public:
     uint send(Datagram* dtg) const;
     uint send(const Datagram* dtg, INetAddress dest) const;
     uint send(char* data, uint len, struct sockaddr* addr, uint addrLen) const;
+    uint send(char* data, uint len, INetAddress dest) const;
     
     bool isErroneous()
     {

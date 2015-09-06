@@ -3,8 +3,7 @@
 #include "Sock.h"
 
 
-
-DatagramSocket::DatagramSocket(INetAddress addr)
+DatagramSocket::DatagramSocket(INetAddress addr, int timeout)
 {
     this->addr = addr;
 
@@ -16,8 +15,8 @@ DatagramSocket::DatagramSocket(INetAddress addr)
         return;
     }
     
-    int timeout = 1000;
-    setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, (const char*)&timeout, sizeof(timeout));
+	if(timeout > 0)
+		setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, (const char*)&timeout, sizeof(timeout));
 
     if(bind(sock, addr.toPtrSockAddr(), addr.getLength()) == -1)
     {
@@ -26,6 +25,12 @@ DatagramSocket::DatagramSocket(INetAddress addr)
         return;
     }
 }
+
+DatagramSocket::DatagramSocket(INetAddress addr) : DatagramSocket(addr, 0)
+{ }
+
+DatagramSocket::DatagramSocket(int timeout) : DatagramSocket(INetAddress(), timeout)
+{ }
 
 DatagramSocket::DatagramSocket() : DatagramSocket(INetAddress())
 { }
@@ -61,6 +66,10 @@ uint DatagramSocket::send(Datagram* dtg) const
 uint DatagramSocket::send(const Datagram* dtg, INetAddress dest) const
 {
     return this->send(dtg->data, dtg->len, dest.toPtrSockAddr(), dest.getLength());
+}
+uint DatagramSocket::send(char* data, uint len, INetAddress dest) const
+{
+    return this->send(data, len, dest.toPtrSockAddr(), dest.getLength());
 }
 uint DatagramSocket::send(char* data, uint len, struct sockaddr* addr, uint addrLen) const
 {

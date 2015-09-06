@@ -21,6 +21,7 @@ public:
     bool isHelp;
     bool hide;
     char* filtersFile;
+	bool dnsCache;
     
 private:
     void load(char* params[], int nb);

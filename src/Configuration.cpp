@@ -15,6 +15,7 @@ char* configuration_parameters[]
     "-rp, -remoteport  [PORT]       : define the port of the \"remote\" DNS Server",
     "-dns              [FILE_PATH]  : define the file containing the filters",
     "-o, -output       [FILE_PATH]  : define the output file",
+    "-c, -cache                     : use a DNS Cache",
 #if OS == WIN
     "-hide                          : hide the window",
 #endif
@@ -39,6 +40,7 @@ Configuration::Configuration(char* params[], int nb)
     remoteDnsServerPort(DNS_SERVER_PORT),
     isHelp(false),
     hide(false),
+	dnsCache(false),
     filtersFile("filters.txt")
 {
     output = &std::cout;
@@ -71,6 +73,8 @@ void Configuration::load(char* params[], int nb)
                 current = CT_FILTERS;
             else if(__IS("-o") || __IS("-output"))
                 current = CT_OUTPUT;
+            else if(__IS("-c") || __IS("-cache"))
+				dnsCache = true;
             #if OS == WIN
             else IS("-hide")
                 hide = true;

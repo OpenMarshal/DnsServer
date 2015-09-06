@@ -106,6 +106,12 @@ $ ./localdnsserver [OPTIONS]
       <td></td>
     </tr>
     <tr>
+      <td>-c, -cache</td>
+      <td></td>
+      <td>Use a DNS Cache</td>
+      <td></td>
+    </tr>
+    <tr>
       <td>-hide</td>
       <td></td>
       <td>Hide the window</td>

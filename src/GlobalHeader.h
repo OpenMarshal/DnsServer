@@ -11,7 +11,7 @@
 #include "Defines.h"
 
 #if DEBUG
-    #define debug(format, args...) printf(format, ##args); fflush(stdout);
+    #define debug(format, args...) { printf(format, ##args); fflush(stdout); }
 #else
     #define debug(format, args...) ;
 #endif

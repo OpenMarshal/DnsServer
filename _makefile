@@ -24,6 +24,7 @@ DEBUG = -Ddebug
 # Files
 OBJS = \
 	$(OBJECT_DIR)/main.o \
+	$(OBJECT_DIR)/DNSCache.o \
 	$(OBJECT_DIR)/Configuration.o \
 	$(OBJECT_DIR)/Datagram.o \
 	$(OBJECT_DIR)/DatagramSocket.o \
@@ -43,7 +44,7 @@ default: build
 
 # Build command
 build: clean init build_all
-	$(COMP) $(CFLAGS) $(OBJS) -o $(OUTPUT_FULL) $(LIBS)
+	@$(COMP) $(CFLAGS) $(OBJS) -o $(OUTPUT_FULL) $(LIBS)
 	@rm -f -r $(OBJECT_DIR)
 	@echo "Build finished with success."
 	@echo "You can find the resulting file at : "$(OUTPUT_FULL)
