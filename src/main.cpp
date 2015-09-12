@@ -183,9 +183,7 @@ int runtime(Configuration& config)
             }
 			
 			if(config.dnsCache)
-			{
 				dnsCache.set(str, dtg_out->getData(), dtg_out->getLength());
-			}
             
             received(str, false);
         }
@@ -205,6 +203,9 @@ int runtime(Configuration& config)
                 debug("[Blocked] in_ds.send error : %i\r\n", error)
                 continue;
             }
+			
+			if(config.dnsCache)
+				dnsCache.set(str, dtg_in->getData(), dtg_in->getLength());
             
             received(str, true);
         }
@@ -255,6 +256,10 @@ EntryFilter* loadEntryFilters(const char* filepath)
 
 void received(char* data, bool blocked)
 {
+	for(char* c = data; c < data + strlen(data); c++)
+		if(*c == '\r' || *c == '\n')
+			(*c) = '.';
+	
     if(blocked)
         getOutput() << " >X> " << data << " [BLOCKED]" << std::endl;
     else
