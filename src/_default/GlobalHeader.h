@@ -8,7 +8,7 @@
 #ifndef GLOBALHEADER_H
 #define	GLOBALHEADER_H
 
-#include "Defines.h"
+#include "_default/src/Defines.h"
 
 #if DEBUG
     #define debug(format, args...) { printf(format, ##args); fflush(stdout); }
@@ -16,10 +16,10 @@
     #define debug(format, args...) ;
 #endif
 
-#include "Types.h"
+#include "_default/src/Types.h"
 #include <stdio.h>
 
-#include "Printer.h"
+#include "_default/src/Printer.h"
 
 
 #endif	/* GLOBALHEADER_H */
