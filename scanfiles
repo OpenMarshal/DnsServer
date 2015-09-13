@@ -1,0 +1,7 @@
+#!/bin/bash
+
+rm -f _objs
+
+echo -e "OBJS = \\" >> _objs
+find src -name "*.cpp" -printf "	%P \<newLine>" | sed 's/.cpp/\'$' /g' | sed 's/<newLine>/\'$'\n/g'  >> _objs
+echo -e " " >> _objs

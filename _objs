@@ -1,0 +1,11 @@
+OBJS = \
+	Configuration  \
+	Datagram  \
+	DatagramSocket  \
+	DNSCache  \
+	EntryFilter  \
+	ExString  \
+	INetAddress  \
+	main  \
+	_default/src/Printer  \
+ 

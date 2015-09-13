@@ -25,21 +25,8 @@ OUTPUT_FULL = $(OUTPUT_DIR)/$(OUTPUT_NAME)$(OUTPUT_EXT)
 
 
 # Files
-PATHS = \
-	$(SOURCE_DIR)/_default/src
+-include _objs
 
-OBJS = \
-	main \
-	DNSCache \
-	Configuration \
-	Datagram \
-	DatagramSocket \
-	EntryFilter \
-	ExString \
-	INetAddress
-
-DEFAULT_OBJS = \
-	Printer
 
 
 ####################################
@@ -82,11 +69,13 @@ help:
 #           Compilations           #
 ####################################
 
-OBJSX = $(OBJS:%=$(OBJECT_DIR)/%.o) $(DEFAULT_OBJS:%=$(OBJECT_DIR)/%.o)
+TEMP_OBJS = $(notdir $(OBJS))
+OBJSX = $(TEMP_OBJS:%=$(OBJECT_DIR)/%.o)
+OBJSXF = $(OBJS:%=$(OBJECT_DIR)/%.o)
 
 
-$(OBJECT_DIR)/%.o: $(SOURCE_DIR)/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
+$(OBJECT_DIR)/%.o:
+	@$(COMP) $(CFLAGS) -c $(SOURCE_DIR)/$(patsubst $(OBJECT_DIR)/%,%,$(dir $@))$(basename $(notdir $@)).cpp -o $(OBJECT_DIR)/$(notdir $@) $(LIBS)
 
 
 
@@ -94,206 +83,4 @@ init:
 	@mkdir -p $(OBJECT_DIR)
 	@mkdir -p $(OUTPUT_DIR)
 	
-build_all: $(OBJSX)
-
-
-# Rep.
-$(OBJECT_DIR)/%.o: $(word 1, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 2, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 3, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 4, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 5, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 6, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 7, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 8, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 9, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 10, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 11, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 12, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 13, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 14, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 15, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 16, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 17, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 18, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 19, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 20, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 21, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 22, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 23, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 24, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 25, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 26, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 27, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 28, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 29, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 30, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 31, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 32, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 33, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 34, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 35, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 36, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 37, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 38, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 39, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 40, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 41, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 42, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 43, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 44, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 45, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 46, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 47, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 48, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 49, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 50, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 51, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 52, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 53, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 54, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 55, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 56, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 57, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 58, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 59, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 60, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 61, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 62, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 63, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 64, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 65, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 66, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 67, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 68, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 69, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 70, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 71, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 72, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 73, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 74, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 75, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 76, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 77, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 78, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 79, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 80, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 81, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 82, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 83, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 84, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 85, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 86, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 87, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 88, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 89, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 90, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 91, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 92, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 93, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 94, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 95, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 96, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 97, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 98, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-$(OBJECT_DIR)/%.o: $(word 99, $(PATHS))/%.cpp
-	@$(COMP) $(CFLAGS) -c $< -o $@ $(LIBS)
-
+build_all: $(OBJSXF)
