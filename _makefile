@@ -2,7 +2,7 @@
 #            Constants             #
 ####################################
 
-OUTPUT_NAME = localdnsserver
+OUTPUT_NAME = dnsserver
 OUTPUT_DIR = .
 
 ifeq ($(OPERATING_SYSTEM), windows )
