@@ -2,8 +2,9 @@
 #            Constants             #
 ####################################
 
-OUTPUT_NAME = dnsserver
-OUTPUT_DIR = .
+-include _project
+
+OUTPUT_DIR = out
 
 ifeq ($(OPERATING_SYSTEM), windows )
 	OUTPUT_EXT = .exe
@@ -15,17 +16,20 @@ endif
 OBJECT_DIR = bin
 SOURCE_DIR = src
 DEFAULT_SOURCE_NAME = _default
-LIBS = -lws2_32 -lwsock32
 COMP = g++
+DEFINES = 
 
 # Macros
 DEFAULT_SOURCE_DIR = ${SOURCE_DIR}/${DEFAULT_SOURCE_NAME}
-CFLAGS = -std=c++11 -Wall -I$(SOURCE_DIR) -I${DEFAULT_SOURCE_DIR} -D$(OPERATING_SYSTEM)
+CFLAGS = -std=c++11 -Wall -I$(SOURCE_DIR) -I${DEFAULT_SOURCE_DIR} -D$(OPERATING_SYSTEM) -w
 OUTPUT_FULL = $(OUTPUT_DIR)/$(OUTPUT_NAME)$(OUTPUT_EXT)
 
 
-# Files
--include _objs
+
+
+-include default.conf
+CFLAGS += $(INCLUDES)
+
 
 
 
@@ -36,10 +40,12 @@ OUTPUT_FULL = $(OUTPUT_DIR)/$(OUTPUT_NAME)$(OUTPUT_EXT)
 # Default command
 default: build
 
+# Files
+-include _objs
+
 # Build command
-build: clean init build_all
+build: init build_all
 	@$(COMP) $(CFLAGS) $(OBJSX) -o $(OUTPUT_FULL) $(LIBS)
-	@rm -f -r $(OBJECT_DIR)
 	@echo "Build finished with success."
 	@echo "You can find the resulting file at : "$(OUTPUT_FULL)
 
@@ -64,23 +70,18 @@ help:
 	@echo "   * build [DEFAULT]"
 	@echo "   * clean/clear"
 
+run:
+	@./$(OUTPUT_FULL)
+	
 	
 ####################################
 #           Compilations           #
 ####################################
 
-TEMP_OBJS = $(notdir $(OBJS))
-OBJSX = $(TEMP_OBJS:%=$(OBJECT_DIR)/%.o)
-OBJSXF = $(OBJS:%=$(OBJECT_DIR)/%.o)
-
-
-$(OBJECT_DIR)/%.o:
-	@$(COMP) $(CFLAGS) -c $(SOURCE_DIR)/$(patsubst $(OBJECT_DIR)/%,%,$(dir $@))$(basename $(notdir $@)).cpp -o $(OBJECT_DIR)/$(notdir $@) $(LIBS)
-
-
-
 init:
+	@echo "Compiling..."
+	@rm -f $(OUTPUT_FULL)
 	@mkdir -p $(OBJECT_DIR)
 	@mkdir -p $(OUTPUT_DIR)
 	
-build_all: $(OBJSXF)
+build_all: build_objs

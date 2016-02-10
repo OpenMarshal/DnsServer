@@ -1,18 +1,12 @@
-/* 
- * File:   Printer.h
- * Author: Adrien
- *
- * Created on 4 septembre 2015, 17:46
- */
+#ifndef _DEFAULT_PRINTER_H
+#define	_DEFAULT_PRINTER_H
 
-#ifndef PRINTER_H
-#define	PRINTER_H
-
+#include "_libs/mutex/mutex.h"
 #include <iostream>
 
-extern std::ostream* output;
-
+Mutex& getOutputMutex();
 std::ostream& getOutput();
+std::ostream& setOutput(std::ostream* output);
 
-#endif	/* PRINTER_H */
+#endif	/* _DEFAULT_PRINTER_H */
 

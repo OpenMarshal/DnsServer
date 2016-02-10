@@ -1,11 +1,79 @@
-OBJS = \
-	Configuration  \
-	Datagram  \
-	DatagramSocket  \
-	DNSCache  \
-	EntryFilter  \
-	ExString  \
-	INetAddress  \
-	main  \
-	_default/src/Printer  \
+OBJSX = \
+	$(OBJECT_DIR)/DNSServer.o \
+	$(OBJECT_DIR)/main.o \
+	$(OBJECT_DIR)/Configuration.o \
+	$(OBJECT_DIR)/DNSCache.o \
+	$(OBJECT_DIR)/FilterManager.o \
+	$(OBJECT_DIR)/Printer.o \
+	$(OBJECT_DIR)/argumentmanager.o \
+	$(OBJECT_DIR)/controller.o \
+	$(OBJECT_DIR)/remoteController.o \
+	$(OBJECT_DIR)/dataLine.o \
+	$(OBJECT_DIR)/file.o \
+	$(OBJECT_DIR)/mutex.o \
+	$(OBJECT_DIR)/HttpMessage.o \
+	$(OBJECT_DIR)/HttpRequest.o \
+	$(OBJECT_DIR)/HttpResponse.o \
+	$(OBJECT_DIR)/ServerSocket.o \
+	$(OBJECT_DIR)/Socket.o \
+	$(OBJECT_DIR)/Datagram.o \
+	$(OBJECT_DIR)/DatagramSocket.o \
+	$(OBJECT_DIR)/INetAddress.o \
+	$(OBJECT_DIR)/InitSocket.o \
+	$(OBJECT_DIR)/ExString.o \
+	$(OBJECT_DIR)/WildString.o \
+	$(OBJECT_DIR)/runnable.o \
+	$(OBJECT_DIR)/thread.o \
  
+build_objs:  $(OBJECT_DIR)/DNSServer.o $(OBJECT_DIR)/main.o $(OBJECT_DIR)/Configuration.o $(OBJECT_DIR)/DNSCache.o $(OBJECT_DIR)/FilterManager.o $(OBJECT_DIR)/Printer.o $(OBJECT_DIR)/argumentmanager.o $(OBJECT_DIR)/controller.o $(OBJECT_DIR)/remoteController.o $(OBJECT_DIR)/dataLine.o $(OBJECT_DIR)/file.o $(OBJECT_DIR)/mutex.o $(OBJECT_DIR)/HttpMessage.o $(OBJECT_DIR)/HttpRequest.o $(OBJECT_DIR)/HttpResponse.o $(OBJECT_DIR)/ServerSocket.o $(OBJECT_DIR)/Socket.o $(OBJECT_DIR)/Datagram.o $(OBJECT_DIR)/DatagramSocket.o $(OBJECT_DIR)/INetAddress.o $(OBJECT_DIR)/InitSocket.o $(OBJECT_DIR)/ExString.o $(OBJECT_DIR)/WildString.o $(OBJECT_DIR)/runnable.o $(OBJECT_DIR)/thread.o
+ 
+$(OBJECT_DIR)/DNSServer.o: $(SOURCE_DIR)/DNSServer.cpp 
+	@$(COMP) $(CFLAGS) -c $(SOURCE_DIR)/DNSServer.cpp -o $(OBJECT_DIR)/DNSServer.o $(LIBS) 
+$(OBJECT_DIR)/main.o: $(SOURCE_DIR)/main.cpp 
+	@$(COMP) $(CFLAGS) -c $(SOURCE_DIR)/main.cpp -o $(OBJECT_DIR)/main.o $(LIBS) 
+$(OBJECT_DIR)/Configuration.o: $(SOURCE_DIR)/Configuration\Configuration.cpp 
+	@$(COMP) $(CFLAGS) -c $(SOURCE_DIR)/Configuration\Configuration.cpp -o $(OBJECT_DIR)/Configuration.o $(LIBS) 
+$(OBJECT_DIR)/DNSCache.o: $(SOURCE_DIR)/DNSCache\DNSCache.cpp 
+	@$(COMP) $(CFLAGS) -c $(SOURCE_DIR)/DNSCache\DNSCache.cpp -o $(OBJECT_DIR)/DNSCache.o $(LIBS) 
+$(OBJECT_DIR)/FilterManager.o: $(SOURCE_DIR)/Filter\FilterManager.cpp 
+	@$(COMP) $(CFLAGS) -c $(SOURCE_DIR)/Filter\FilterManager.cpp -o $(OBJECT_DIR)/FilterManager.o $(LIBS) 
+$(OBJECT_DIR)/Printer.o: $(SOURCE_DIR)/_default\src\Printer.cpp 
+	@$(COMP) $(CFLAGS) -c $(SOURCE_DIR)/_default\src\Printer.cpp -o $(OBJECT_DIR)/Printer.o $(LIBS) 
+$(OBJECT_DIR)/argumentmanager.o: $(SOURCE_DIR)/_libs\argument\argumentmanager.cpp 
+	@$(COMP) $(CFLAGS) -c $(SOURCE_DIR)/_libs\argument\argumentmanager.cpp -o $(OBJECT_DIR)/argumentmanager.o $(LIBS) 
+$(OBJECT_DIR)/controller.o: $(SOURCE_DIR)/_libs\controller\controller.cpp 
+	@$(COMP) $(CFLAGS) -c $(SOURCE_DIR)/_libs\controller\controller.cpp -o $(OBJECT_DIR)/controller.o $(LIBS) 
+$(OBJECT_DIR)/remoteController.o: $(SOURCE_DIR)/_libs\controller\remoteController.cpp 
+	@$(COMP) $(CFLAGS) -c $(SOURCE_DIR)/_libs\controller\remoteController.cpp -o $(OBJECT_DIR)/remoteController.o $(LIBS) 
+$(OBJECT_DIR)/dataLine.o: $(SOURCE_DIR)/_libs\dataParse\dataLine\dataLine.cpp 
+	@$(COMP) $(CFLAGS) -c $(SOURCE_DIR)/_libs\dataParse\dataLine\dataLine.cpp -o $(OBJECT_DIR)/dataLine.o $(LIBS) 
+$(OBJECT_DIR)/file.o: $(SOURCE_DIR)/_libs\file\file.cpp 
+	@$(COMP) $(CFLAGS) -c $(SOURCE_DIR)/_libs\file\file.cpp -o $(OBJECT_DIR)/file.o $(LIBS) 
+$(OBJECT_DIR)/mutex.o: $(SOURCE_DIR)/_libs\mutex\mutex.cpp 
+	@$(COMP) $(CFLAGS) -c $(SOURCE_DIR)/_libs\mutex\mutex.cpp -o $(OBJECT_DIR)/mutex.o $(LIBS) 
+$(OBJECT_DIR)/HttpMessage.o: $(SOURCE_DIR)/_libs\protocol\http\HttpMessage.cpp 
+	@$(COMP) $(CFLAGS) -c $(SOURCE_DIR)/_libs\protocol\http\HttpMessage.cpp -o $(OBJECT_DIR)/HttpMessage.o $(LIBS) 
+$(OBJECT_DIR)/HttpRequest.o: $(SOURCE_DIR)/_libs\protocol\http\HttpRequest.cpp 
+	@$(COMP) $(CFLAGS) -c $(SOURCE_DIR)/_libs\protocol\http\HttpRequest.cpp -o $(OBJECT_DIR)/HttpRequest.o $(LIBS) 
+$(OBJECT_DIR)/HttpResponse.o: $(SOURCE_DIR)/_libs\protocol\http\HttpResponse.cpp 
+	@$(COMP) $(CFLAGS) -c $(SOURCE_DIR)/_libs\protocol\http\HttpResponse.cpp -o $(OBJECT_DIR)/HttpResponse.o $(LIBS) 
+$(OBJECT_DIR)/ServerSocket.o: $(SOURCE_DIR)/_libs\socket\tcp\ServerSocket.cpp 
+	@$(COMP) $(CFLAGS) -c $(SOURCE_DIR)/_libs\socket\tcp\ServerSocket.cpp -o $(OBJECT_DIR)/ServerSocket.o $(LIBS) 
+$(OBJECT_DIR)/Socket.o: $(SOURCE_DIR)/_libs\socket\tcp\Socket.cpp 
+	@$(COMP) $(CFLAGS) -c $(SOURCE_DIR)/_libs\socket\tcp\Socket.cpp -o $(OBJECT_DIR)/Socket.o $(LIBS) 
+$(OBJECT_DIR)/Datagram.o: $(SOURCE_DIR)/_libs\socket\udp\Datagram.cpp 
+	@$(COMP) $(CFLAGS) -c $(SOURCE_DIR)/_libs\socket\udp\Datagram.cpp -o $(OBJECT_DIR)/Datagram.o $(LIBS) 
+$(OBJECT_DIR)/DatagramSocket.o: $(SOURCE_DIR)/_libs\socket\udp\DatagramSocket.cpp 
+	@$(COMP) $(CFLAGS) -c $(SOURCE_DIR)/_libs\socket\udp\DatagramSocket.cpp -o $(OBJECT_DIR)/DatagramSocket.o $(LIBS) 
+$(OBJECT_DIR)/INetAddress.o: $(SOURCE_DIR)/_libs\socket\_all\INetAddress.cpp 
+	@$(COMP) $(CFLAGS) -c $(SOURCE_DIR)/_libs\socket\_all\INetAddress.cpp -o $(OBJECT_DIR)/INetAddress.o $(LIBS) 
+$(OBJECT_DIR)/InitSocket.o: $(SOURCE_DIR)/_libs\socket\_all\InitSocket.cpp 
+	@$(COMP) $(CFLAGS) -c $(SOURCE_DIR)/_libs\socket\_all\InitSocket.cpp -o $(OBJECT_DIR)/InitSocket.o $(LIBS) 
+$(OBJECT_DIR)/ExString.o: $(SOURCE_DIR)/_libs\string\ExString.cpp 
+	@$(COMP) $(CFLAGS) -c $(SOURCE_DIR)/_libs\string\ExString.cpp -o $(OBJECT_DIR)/ExString.o $(LIBS) 
+$(OBJECT_DIR)/WildString.o: $(SOURCE_DIR)/_libs\string\WildString.cpp 
+	@$(COMP) $(CFLAGS) -c $(SOURCE_DIR)/_libs\string\WildString.cpp -o $(OBJECT_DIR)/WildString.o $(LIBS) 
+$(OBJECT_DIR)/runnable.o: $(SOURCE_DIR)/_libs\thread\runnable.cpp 
+	@$(COMP) $(CFLAGS) -c $(SOURCE_DIR)/_libs\thread\runnable.cpp -o $(OBJECT_DIR)/runnable.o $(LIBS) 
+$(OBJECT_DIR)/thread.o: $(SOURCE_DIR)/_libs\thread\thread.cpp 
+	@$(COMP) $(CFLAGS) -c $(SOURCE_DIR)/_libs\thread\thread.cpp -o $(OBJECT_DIR)/thread.o $(LIBS) 

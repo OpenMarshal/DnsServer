@@ -1,12 +1,5 @@
-/* 
- * File:   Types.h
- * Author: Adrien Castex
- *
- * Created on 2 septembre 2015, 23:15
- */
-
-#ifndef TYPES_H
-#define	TYPES_H
+#ifndef _DEFAULT_TYPES_H
+#define	_DEFAULT_TYPES_H
 
 typedef unsigned short ushort;
 typedef signed short sshort;
@@ -18,5 +11,5 @@ typedef unsigned long ulong;
 typedef signed long slong;
 
 
-#endif	/* TYPES_H */
+#endif	/* _DEFAULT_TYPES_H */
 

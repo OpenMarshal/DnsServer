@@ -1,3 +1,6 @@
 makefile
 bin
-dnsserver*
+out
+_objs
+*.stackdump
+root
